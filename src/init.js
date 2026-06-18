@@ -323,22 +323,38 @@ export async function init({ dryRun = false, force = false } = {}) {
   // Merge lint-staged config
   const { config: lintStagedConfig, missing: missingTools } =
     buildLintStagedConfig(projectRoot);
+  const hasTools = Object.keys(lintStagedConfig).length > 0;
 
   // Warn about missing tools early
   for (const tool of missingTools) {
     info(
-      `${tool} not found — "lint-staged" will skip ${tool}-related checks.\n` +
+      `${tool} not found — pre-commit will skip ${tool}-related checks.\n` +
         `    Install with: ${pm.installCmd} ${tool}`
     );
   }
 
-  if (pkg.data['lint-staged']) {
+  if (!hasTools) {
+    // No lint tools available — use no-op config to avoid lint-staged errors
+    if (pkg.data['lint-staged']) {
+      pkgUpdates.push({
+        key: 'lint-staged',
+        value: { '*': [] },
+        action: 'overwrite',
+      });
+    } else {
+      pkgUpdates.push({
+        key: 'lint-staged',
+        value: { '*': [] },
+        action: 'set',
+      });
+    }
+  } else if (pkg.data['lint-staged'] && !force) {
     pkgUpdates.push({ key: 'lint-staged', action: 'keep' });
   } else {
     pkgUpdates.push({
       key: 'lint-staged',
       value: lintStagedConfig,
-      action: 'set',
+      action: pkg.data['lint-staged'] ? 'overwrite' : 'set',
     });
   }
 
@@ -464,7 +480,7 @@ export async function init({ dryRun = false, force = false } = {}) {
           }
         }
         success(`Removed "${u.key}" from package.json`);
-      } else if (u.action === 'set') {
+      } else if (u.action === 'set' || u.action === 'overwrite') {
         // Handle nested keys
         const parts = u.key.split('.');
         let obj = updatedPkg;
@@ -473,7 +489,8 @@ export async function init({ dryRun = false, force = false } = {}) {
           obj = obj[parts[i]];
         }
         obj[parts[parts.length - 1]] = u.value;
-        success(`Set "${u.key}" in package.json`);
+        const verb = u.action === 'overwrite' ? 'Updated' : 'Set';
+        success(`${verb} "${u.key}" in package.json`);
       }
     }
 

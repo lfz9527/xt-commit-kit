@@ -1,6 +1,6 @@
 {
   "name": "@xtmm/commit-kit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "一键式 Git 提交规范配置工具 — 集成 husky + lint-staged + commitlint + commitizen",
   "type": "module",
   "bin": {
@@ -40,15 +40,6 @@
   "devDependencies": {
     "@xtmm/commit-kit": "^1.0.0"
   },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{css,scss,less,md,html,json}": [
-      "prettier --write"
-    ]
-  },
   "config": {
     "commitizen": {
       "path": "node_modules/cz-customizable",
@@ -59,5 +50,8 @@
     "cz-customizable": {
       "config": "./.cz-config.cjs"
     }
+  },
+  "lint-staged": {
+    "*": []
   }
 }
