@@ -18,7 +18,8 @@
       "Bash(git init *)",
       "Bash(node *)",
       "Bash(cd D:\\\\\\\\xt-commit-kit)",
-      "Bash(npm version *)"
+      "Bash(npm version *)",
+      "Bash(pnpm commit-kit *)"
     ],
     "defaultMode": "bypassPermissions"
   }
