@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "prepare": "husky",
-    "commit": "cz"
+    "commit": "npx commitizen"
   },
   "keywords": [
     "commit",

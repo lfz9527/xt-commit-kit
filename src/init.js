@@ -38,23 +38,23 @@ function info(msg) {
  */
 function detectPackageManager(projectRoot) {
   const checks = [
-    { name: 'pnpm', file: 'pnpm-lock.yaml', installCmd: 'pnpm add -D' },
-    { name: 'yarn', file: 'yarn.lock', installCmd: 'yarn add -D' },
-    { name: 'bun', file: 'bun.lockb', installCmd: 'bun add -D' },
-    { name: 'npm', file: 'package-lock.json', installCmd: 'npm install -D' },
+    { name: 'pnpm', file: 'pnpm-lock.yaml', installCmd: 'pnpm add -D', commitCmd: 'pnpm exec commitizen' },
+    { name: 'yarn', file: 'yarn.lock', installCmd: 'yarn add -D', commitCmd: 'yarn commitizen' },
+    { name: 'bun', file: 'bun.lockb', installCmd: 'bun add -D', commitCmd: 'bun commitizen' },
+    { name: 'npm', file: 'package-lock.json', installCmd: 'npm install -D', commitCmd: 'npx commitizen' },
   ];
 
   for (const check of checks) {
     try {
       statSync(resolve(projectRoot, check.file));
-      return { name: check.name, installCmd: check.installCmd };
+      return { name: check.name, installCmd: check.installCmd, commitCmd: check.commitCmd };
     } catch {
       // file not found, try next
     }
   }
 
   // Default to npm if no lock file found
-  return { name: 'npm', installCmd: 'npm install -D' };
+  return { name: 'npm', installCmd: 'npm install -D', commitCmd: 'npx commitizen' };
 }
 
 /**
@@ -322,9 +322,9 @@ export async function init({ dryRun = false, force = false } = {}) {
 
   // Add commit script for convenient `npm run commit` / `pnpm commit`
   if (force) {
-    pkgUpdates.push({ key: 'scripts.commit', value: 'npx cz', action: pkg.data.scripts?.commit ? 'overwrite' : 'set' });
+    pkgUpdates.push({ key: 'scripts.commit', value: pm.commitCmd, action: pkg.data.scripts?.commit ? 'overwrite' : 'set' });
   } else if (!pkg.data.scripts?.commit) {
-    pkgUpdates.push({ key: 'scripts.commit', value: 'npx cz', action: 'set' });
+    pkgUpdates.push({ key: 'scripts.commit', value: pm.commitCmd, action: 'set' });
   } else {
     pkgUpdates.push({ key: 'scripts.commit', action: 'keep' });
   }
