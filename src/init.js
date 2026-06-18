@@ -38,10 +38,10 @@ function info(msg) {
  */
 function detectPackageManager(projectRoot) {
   const checks = [
-    { name: 'pnpm', file: 'pnpm-lock.yaml', installCmd: 'pnpm add -D', commitCmd: 'pnpm exec commitizen' },
-    { name: 'yarn', file: 'yarn.lock', installCmd: 'yarn add -D', commitCmd: 'yarn commitizen' },
-    { name: 'bun', file: 'bun.lockb', installCmd: 'bun add -D', commitCmd: 'bun commitizen' },
-    { name: 'npm', file: 'package-lock.json', installCmd: 'npm install -D', commitCmd: 'npx commitizen' },
+    { name: 'pnpm', file: 'pnpm-lock.yaml', installCmd: 'pnpm add -D', commitCmd: 'pnpm exec cz' },
+    { name: 'yarn', file: 'yarn.lock', installCmd: 'yarn add -D', commitCmd: 'cz' },
+    { name: 'bun', file: 'bun.lockb', installCmd: 'bun add -D', commitCmd: 'cz' },
+    { name: 'npm', file: 'package-lock.json', installCmd: 'npm install -D', commitCmd: 'cz' },
   ];
 
   for (const check of checks) {
@@ -54,7 +54,7 @@ function detectPackageManager(projectRoot) {
   }
 
   // Default to npm if no lock file found
-  return { name: 'npm', installCmd: 'npm install -D', commitCmd: 'npx commitizen' };
+  return { name: 'npm', installCmd: 'npm install -D', commitCmd: 'cz' };
 }
 
 /**
