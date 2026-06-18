@@ -322,9 +322,9 @@ export async function init({ dryRun = false, force = false } = {}) {
 
   // Add commit script for convenient `npm run commit` / `pnpm commit`
   if (force) {
-    pkgUpdates.push({ key: 'scripts.commit', value: 'cz', action: pkg.data.scripts?.commit ? 'overwrite' : 'set' });
+    pkgUpdates.push({ key: 'scripts.commit', value: 'npx cz', action: pkg.data.scripts?.commit ? 'overwrite' : 'set' });
   } else if (!pkg.data.scripts?.commit) {
-    pkgUpdates.push({ key: 'scripts.commit', value: 'cz', action: 'set' });
+    pkgUpdates.push({ key: 'scripts.commit', value: 'npx cz', action: 'set' });
   } else {
     pkgUpdates.push({ key: 'scripts.commit', action: 'keep' });
   }
