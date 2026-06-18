@@ -1,0 +1,5 @@
+#!/bin/sh
+# Created by @xtmm/commit-kit
+# Commit-msg: validate commit message format with commitlint
+
+npx --no-install commitlint --edit "$1"

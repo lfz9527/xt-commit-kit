@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm whoami *)",
+      "Bash(npm view *)",
+      "Bash(npm pack *)",
+      "Bash(npm login *)",
+      "Bash(npm publish *)",
+      "Bash(npm profile *)",
+      "Bash(npm config *)",
+      "Bash(npm org *)",
+      "Bash(npm access *)",
+      "WebFetch(domain:www.npmjs.com)",
+      "Bash(curl *)",
+      "Bash(npm install *)",
+      "Bash(npm i *)",
+      "Bash(npx *)",
+      "Bash(git init *)",
+      "Bash(node *)",
+      "Bash(cd D:\\\\\\\\xt-commit-kit)",
+      "Bash(npm version *)"
+    ],
+    "defaultMode": "bypassPermissions"
+  }
+}
