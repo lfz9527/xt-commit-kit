@@ -320,6 +320,15 @@ export async function init({ dryRun = false, force = false } = {}) {
     pkgUpdates.push({ key: 'husky.hooks', value: null, action: 'remove' });
   }
 
+  // Add commit script for convenient `npm run commit` / `pnpm commit`
+  if (force) {
+    pkgUpdates.push({ key: 'scripts.commit', value: 'cz', action: pkg.data.scripts?.commit ? 'overwrite' : 'set' });
+  } else if (!pkg.data.scripts?.commit) {
+    pkgUpdates.push({ key: 'scripts.commit', value: 'cz', action: 'set' });
+  } else {
+    pkgUpdates.push({ key: 'scripts.commit', action: 'keep' });
+  }
+
   // Merge lint-staged config
   const { config: lintStagedConfig, missing: missingTools } =
     buildLintStagedConfig(projectRoot);
@@ -526,7 +535,7 @@ export async function init({ dryRun = false, force = false } = {}) {
   log('Next steps:');
   log(`  1. Install the package:  ${pm.installCmd} @xtmm/commit-kit`);
   log('  2. Customize .cz-config.cjs if needed');
-  log('  3. Use "git cz" or "pnpm commit" for guided commits');
+  log(`  3. Use "${pm.name} run commit" or "git cz" for guided commits`);
   log('');
   log(`   You can also edit "lint-staged" in package.json to adjust lint rules.`);
   log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
