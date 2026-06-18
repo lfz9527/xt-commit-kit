@@ -1,6 +1,6 @@
 {
   "name": "@xtmm/commit-kit",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "一键式 Git 提交规范配置工具 — 集成 husky + lint-staged + commitlint + commitizen",
   "type": "module",
   "bin": {
