@@ -19,12 +19,15 @@ npm install -D @xtmm/commit-kit
 # 或
 pnpm add -D @xtmm/commit-kit
 
-# 2. 初始化
+# 2. 预览变更（安全，不写文件）
+npx commit-kit init --dry-run
+
+# 3. 正式初始化
 npx commit-kit init
 
-# 3. 使用（二选一）
-git cz          # commitizen 标准命令
-pnpm commit     # 如果配置了 "commit": "git-cz"
+# 4. 使用（任选其一）
+npm run commit      # 通过 scripts.commit（推荐，自动适配包管理器）
+git cz              # commitizen 标准命令
 ```
 
 ## CLI 命令
@@ -47,7 +50,8 @@ commit-kit --version         # 打印版本
 6. 写入 commitlint.config.js（校验规则）
 7. 更新 package.json:
    - scripts.prepare = "husky"
-   - lint-staged 配置（eslint + prettier）
+   - scripts.commit = "commit-kit-cz"  （跨包管理器提交命令）
+   - lint-staged 配置（智能检测 eslint/prettier，无工具则配置空规则避免报错）
    - config.commitizen + config.cz-customizable
    - 移除废弃的 husky.hooks（husky v4 遗留）
 8. 执行 husky 注册 Git hooks
@@ -83,8 +87,8 @@ commit-kit --version         # 打印版本
 
 ## 注意事项
 
-- 默认 lint-staged 配置会调用 `eslint --fix` 和 `prettier --write`，请确保项目已安装这两个工具
-- 如果项目不需要 ESLint/Prettier，可编辑 `package.json` 中的 `lint-staged` 配置
+- **智能 lint-staged**：init 会自动检测项目中是否安装了 `eslint` / `prettier`，按需生成对应配置；如果两者都未安装，会写入空规则 `{ "*": [] }` 以避免 lint-staged 报错
+- 如需 ESLint/Prettier 检查，请先安装这两个工具，再执行 `commit-kit init --force` 更新 lint-staged 配置
 - `.cz-config.cjs` 和 `commitlint.config.js` 首次 init 后不会被覆盖（除非 `--force`）
 
 ## License
