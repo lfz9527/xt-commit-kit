@@ -28,7 +28,8 @@
       "Bash(pnpm exec *)",
       "Bash(pnpm remove *)",
       "Bash(dir *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git push *)"
     ],
     "defaultMode": "bypassPermissions"
   }
