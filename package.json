@@ -1,10 +1,11 @@
 {
   "name": "@xtmm/commit-kit",
-  "version": "1.0.6",
+  "version": "1.0.9",
   "description": "一键式 Git 提交规范配置工具 — 集成 husky + lint-staged + commitlint + commitizen",
   "type": "module",
   "bin": {
-    "commit-kit": "./bin/cli.js"
+    "commit-kit": "./bin/cli.js",
+    "commit-kit-cz": "./bin/commit.js"
   },
   "files": [
     "bin/",

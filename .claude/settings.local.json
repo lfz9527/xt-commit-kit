@@ -19,7 +19,16 @@
       "Bash(node *)",
       "Bash(cd D:\\\\\\\\xt-commit-kit)",
       "Bash(npm version *)",
-      "Bash(pnpm commit-kit *)"
+      "Bash(pnpm commit-kit *)",
+      "Bash(rm -rf /tmp/test-commit-kit)",
+      "Bash(mkdir -p /tmp/test-commit-kit)",
+      "Bash(pnpm init *)",
+      "Bash(pnpm add *)",
+      "Bash(pnpm run *)",
+      "Bash(pnpm exec *)",
+      "Bash(pnpm remove *)",
+      "Bash(dir *)",
+      "Bash(git add *)"
     ],
     "defaultMode": "bypassPermissions"
   }
